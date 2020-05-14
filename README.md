@@ -13,7 +13,7 @@
 
 ***
 
-### Demo : https://ping-frontend.herokuapp.com/
+### Demo : https://ping-frontend.now.sh
 
 ***
 
