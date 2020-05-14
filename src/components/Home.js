@@ -135,7 +135,7 @@ class Home extends Component {
 						<div className={classes.toolbar} />
 						<Divider />
 						<center>
-							<img src={`https://robohash.org/${this.state.firstName}?200x200`} className={classes.avatar} />
+							<img alt="AVATAR" src={`https://robohash.org/${this.state.firstName}?200x200`} className={classes.avatar} />
 							<p>
 								{' '}
 								{this.state.firstName} {this.state.lastName}

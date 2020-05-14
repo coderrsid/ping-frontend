@@ -1,4 +1,4 @@
-import API from './api';
+import API from './API';
 
 export const register = newUser => {
   console.log(newUser);
