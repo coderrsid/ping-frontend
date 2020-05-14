@@ -1,8 +1,7 @@
 import API from './API';
 
 export const register = newUser => {
-  return API
-    .post('users/register', {
+  return API.post('users/register', {
       firstName: newUser.firstname,
       lastName: newUser.lastname,
       email: newUser.email,
@@ -17,8 +16,7 @@ export const register = newUser => {
 }
 
 export const login = user => {
-  return API
-    .post('users/login', {
+  return API.post('users/login', {
       email: user.email,
       password: user.password
     })
@@ -32,8 +30,7 @@ export const login = user => {
 }
 
 export const getProfile = userid => {
-  return API
-    .get(`users/account/${userid}`)
+  return API.get(`users/account/${userid}`)
     .then(response => {
       return(response.data)
     })
@@ -43,8 +40,7 @@ export const getProfile = userid => {
 }
 
 export const updateProfile = user => {
-  return API
-    .put(`users/update/${user.id}`, {
+  return API.put(`users/update/${user.id}`, {
       first_name: user.firstName,
       last_name: user.lastName
     })
@@ -57,8 +53,7 @@ export const updateProfile = user => {
 }
 
 export const pushNotificationData = (userid, subscriptionId) => {
-  return API
-    .put(`users/subscription/${userid}`, {
+  return API.put(`users/subscription/${userid}`, {
       subscription: subscriptionId
     })
     .then(response => {
@@ -70,8 +65,7 @@ export const pushNotificationData = (userid, subscriptionId) => {
 }
 
 export const getList = (userid) => {
-  return API
-      .get(`${userid}/api/tasks`, {
+  return API.get(`${userid}/api/tasks`, {
           headers: { "Content-type": "application/json" }
       })
       .then(res => {
@@ -86,8 +80,7 @@ export const getList = (userid) => {
 }
 
 export const addToList = (userid, term, reminder, canvas) => {
-  return API
-      .post(
+  return API.post(
         `${userid}/api/task`, {
               title: term,
               reminder: reminder,
@@ -101,8 +94,7 @@ export const addToList = (userid, term, reminder, canvas) => {
 }
 
 export const deleteItem = (id, userid) => {
-  API
-      .delete(
+  return API.delete(
           `${userid}/api/task/${id}`, {
               headers: { "Content-type": "application/json" }
           })
@@ -115,8 +107,7 @@ export const deleteItem = (id, userid) => {
 }
 
 export const updateItem = (term, reminder, canvas, userid, id) => {
-  return API
-      .put(
+  return API.put(
           `${userid}/api/task/${id}`, {
               title: term,
               reminder: reminder,
