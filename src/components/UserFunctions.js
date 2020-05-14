@@ -1,8 +1,8 @@
-import axios from 'axios'
+import API from './api';
 
 export const register = newUser => {
   console.log(newUser);
-  return axios
+  return API
     .post('users/register', {
       firstName: newUser.firstname,
       lastName: newUser.lastname,
@@ -18,7 +18,7 @@ export const register = newUser => {
 }
 
 export const login = user => {
-  return axios
+  return API
     .post('users/login', {
       email: user.email,
       password: user.password
@@ -33,7 +33,7 @@ export const login = user => {
 }
 
 export const getProfile = userid => {
-  return axios
+  return API
     .get(`users/account/${userid}`)
     .then(response => {
       return(response.data)
@@ -44,7 +44,7 @@ export const getProfile = userid => {
 }
 
 export const updateProfile = user => {
-  return axios
+  return API
     .put(`users/update/${user.id}`, {
       first_name: user.firstName,
       last_name: user.lastName
@@ -59,7 +59,7 @@ export const updateProfile = user => {
 
 export const pushNotificationData = (userid, subscriptionId) => {
   console.log(userid, subscriptionId);
-  return axios
+  return API
     .put(`users/subscription/${userid}`, {
       subscription: subscriptionId
     })
@@ -73,7 +73,7 @@ export const pushNotificationData = (userid, subscriptionId) => {
 }
 
 export const getList = (userid) => {
-  return axios
+  return API
       .get(`${userid}/api/tasks`, {
           headers: { "Content-type": "application/json" }
       })
@@ -90,7 +90,7 @@ export const getList = (userid) => {
 }
 
 export const addToList = (userid, term, reminder, canvas) => {
-  return axios
+  return API
       .post(
         `${userid}/api/task`, {
               title: term,
@@ -105,7 +105,7 @@ export const addToList = (userid, term, reminder, canvas) => {
 }
 
 export const deleteItem = (id, userid) => {
-  axios
+  API
       .delete(
           `${userid}/api/task/${id}`, {
               headers: { "Content-type": "application/json" }
@@ -119,7 +119,7 @@ export const deleteItem = (id, userid) => {
 }
 
 export const updateItem = (term, reminder, canvas, userid, id) => {
-  return axios
+  return API
       .put(
           `${userid}/api/task/${id}`, {
               title: term,
