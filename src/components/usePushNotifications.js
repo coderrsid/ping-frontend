@@ -59,7 +59,6 @@ export default function usePushNotifications() {
    * If the user denies the consent, an error is created with the setError hook
    */
   const onClickAskUserPermission = () => {
-    console.log('asked user permission');
     setLoading(true);
     setError(false);
     askUserPermission().then(consent => {
@@ -67,7 +66,6 @@ export default function usePushNotifications() {
       if (consent !== "granted") {
         alert('Please grant permission for remainders');
       } else {
-        console.log('subscibed1');
         onClickSusbribeToPushNotification();
       }
       setLoading(false);
@@ -84,7 +82,6 @@ export default function usePushNotifications() {
     setError(false);
     createNotificationSubscription()
       .then(function(subscription) {
-        console.log(subscription);
         onClickSendSubscriptionToPushServer(subscription);
         setLoading(false);
       })
@@ -104,7 +101,6 @@ export default function usePushNotifications() {
     setError(false);
     const token = localStorage.usertoken;
     const decoded = jwt_decode(token);
-    console.log(subscription);
     setPushServerSubscriptionId(subscription);
     subscription = JSON.stringify(subscription);
     pushNotificationData(decoded.identity.id, subscription);

@@ -82,8 +82,6 @@ class Home extends Component {
 				firstName: response.first_name,
 				lastName: response.last_name,
 				uiLoading: false
-			}, () => {
-				console.log(this.state);
 			})
 		}).catch(err => alert('Profile error'))
 	}

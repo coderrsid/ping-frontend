@@ -16,7 +16,6 @@ class App extends Component {
   componentWillMount() {
     const token = localStorage.usertoken;
     this.setState({token: token});
-    console.log(this.state.token);
   }
 
   render() {

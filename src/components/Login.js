@@ -80,7 +80,10 @@ class Login extends Component {
     login(user).then(res => {
         this.props.history.push(`/`)
       }
-    ).catch(err => alert('User not found'));
+    ).catch(err => {
+      alert('User not found')
+      this.props.history.push(`/register`);
+    });
   }
 
   render() {

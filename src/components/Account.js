@@ -83,23 +83,8 @@ class Account extends Component {
 				email: response.email,
 				subscription: response.subscription,
 				uiLoading: false
-			}, () => {
-				console.log(this.state);
 			})
 		}).catch(err => alert('Profile error'))
-	}
-	
-	setProfile = (user) => {
-		if(user)
-			this.setState({
-				id: user.id,
-				firstName: user.first_name,
-				lastName: user.last_name,
-				email: user.email,
-				subscription: user.subscription,
-				uiLoading: false
-			})
-		console.log(user,this.state);
 	}
 
     handleChange = (event) => {
@@ -128,6 +113,7 @@ class Account extends Component {
 	}
 
 	handlePushNotification = () => {
+		this.setState({subscription: true});
 		this.props.onClickUserPermission();
 	}
     

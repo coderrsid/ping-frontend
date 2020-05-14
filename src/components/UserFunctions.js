@@ -1,7 +1,6 @@
 import API from './API';
 
 export const register = newUser => {
-  console.log(newUser);
   return API
     .post('users/register', {
       firstName: newUser.firstname,
@@ -58,13 +57,11 @@ export const updateProfile = user => {
 }
 
 export const pushNotificationData = (userid, subscriptionId) => {
-  console.log(userid, subscriptionId);
   return API
     .put(`users/subscription/${userid}`, {
       subscription: subscriptionId
     })
     .then(response => {
-      console.log(response.data)
       return response.data
     })
     .catch(err => {
@@ -83,7 +80,6 @@ export const getList = (userid) => {
               var val = res.data[key]
               data.push([val.id, val.title, val.reminder, val.canvas])
           })
-          console.log('user function', res);
           return data;
           
       })

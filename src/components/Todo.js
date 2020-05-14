@@ -121,7 +121,8 @@ class Todo extends Component {
             errors: [],
             uiLoading: true,
             canvasDataURL: null,
-            showSigPad: false
+            showSigPad: false,
+            reminders: false
         }
 
         this.sigPad = React.createRef();
@@ -135,9 +136,14 @@ class Todo extends Component {
                 title: '',
                 reminder: '',
                 items: [...data]
+            }, () => {
+                this.setState({uiLoading: false})
             });
         })
-        this.setState({userid: decoded.identity.id, uiLoading: false});
+        if(this.state.items.length > 0) {
+            this.setState({reminders: true});
+        }
+        this.setState({userid: decoded.identity.id});
     }
 
     onChange = e => {
@@ -149,7 +155,6 @@ class Todo extends Component {
     getAll = () => {
         this.setState({uiLoading: true});
         getList(this.state.userid).then(data => {
-            console.log(data);
             this.setState({
                 id: '',
                 title: '',
@@ -174,7 +179,6 @@ class Todo extends Component {
     }
 
     onUpdate = e => {
-        console.log('update called');
         e.preventDefault();
         updateItem(this.state.title, this.state.reminder, this.state.canvasDataURL, this.state.userid, this.state.id).then(() => {
             this.getAll()
@@ -183,7 +187,6 @@ class Todo extends Component {
     }
 
     onDelete = (val) => {
-        console.log('delete called');
         deleteItem(val, this.state.userid)
 
         var data = [...this.state.items]
@@ -362,7 +365,7 @@ class Todo extends Component {
 					</Dialog>
 
 					<Grid container spacing={2}>
-						{this.state.items ? this.state.items.map((item) => (
+						{this.state.reminders ? this.state.items.map((item) => (
 							<Grid key={item[0]} item xs={12} sm={6}>
 								<Card className={classes.root} variant="outlined">
 									<CardContent>
@@ -385,7 +388,7 @@ class Todo extends Component {
 									</CardActions>
 								</Card>
 							</Grid>
-                        )) : <h1>No reminders!</h1>}
+                        )) : <h1 style={{opacity:'0.6'}}>Voila! You have no upcoming tasks.</h1>}
                         
 					</Grid>
 				</main>
