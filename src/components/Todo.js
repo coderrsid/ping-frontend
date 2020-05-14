@@ -137,12 +137,14 @@ class Todo extends Component {
                 reminder: '',
                 items: [...data]
             }, () => {
+                if(data.length > 0)
+                    this.setState({reminders: true});
+                else 
+                    this.setState({reminders: false});
                 this.setState({uiLoading: false})
             });
         })
-        if(this.state.items.length > 0) {
-            this.setState({reminders: true});
-        }
+        
         this.setState({userid: decoded.identity.id});
     }
 
@@ -167,6 +169,7 @@ class Todo extends Component {
                 showSigPad: false
             });
         })
+       
     }
 
     onSubmit = e => {
@@ -187,9 +190,12 @@ class Todo extends Component {
     }
 
     onDelete = (val) => {
-        deleteItem(val, this.state.userid)
+        deleteItem(val, this.state.userid).then(() => {
+            this.getAll();
+        })
 
         var data = [...this.state.items]
+        
         data.filter((item, index) => {
             if (item[1] === val && item) {
                 data.splice(index, 1)
@@ -200,7 +206,14 @@ class Todo extends Component {
     }
 
     handleClose = (event) => {
-        this.setState({ open: false });
+        this.setState({
+            id: '',
+            title: '',
+            reminder: '',
+            canvasDataURL: '',
+            buttonType: '', 
+            open: false 
+        });
     };
 
     handleEditClickOpen = (data) => {
@@ -218,6 +231,7 @@ class Todo extends Component {
         this.setState({
             id: '',
             title: '',
+            reminder: '',
             canvasDataURL: '',
             buttonType: '',
             open: true
@@ -314,7 +328,6 @@ class Todo extends Component {
                                         helperText={errors.reminder}
                                         error={errors.reminder ? true : false}
                                         onChange={this.onChange.bind(this)}
-                                        InputProps={{inputProps: { min: new Date().toJSON().slice(0,10).replace(/-/g,'/'), max: "2020-05-04"} }}
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
