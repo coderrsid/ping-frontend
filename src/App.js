@@ -30,7 +30,10 @@ class App extends Component {
               }
             </Route>
             <Route exact path="/register" component={Register} />
-            <Route path="/login" component={Login} />
+            <Route path="/login" />
+            {
+              this.state.token ? <Redirect to="/" /> : <Login />
+            }
             <Route path="*">
               <NoMatch />
             </Route>

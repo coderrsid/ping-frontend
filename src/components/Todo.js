@@ -137,10 +137,7 @@ class Todo extends Component {
                 reminder: '',
                 items: [...data]
             }, () => {
-                if(data.length > 0)
-                    this.setState({reminders: true});
-                else 
-                    this.setState({reminders: false});
+                this.setState({reminders: true})
                 this.setState({uiLoading: false})
             });
         })
@@ -168,8 +165,7 @@ class Todo extends Component {
                 canvasDataURL: null,
                 showSigPad: false
             });
-        })
-       
+        }) 
     }
 
     onSubmit = e => {
