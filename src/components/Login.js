@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { login } from './UserFunctions';
+import {withRouter} from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -79,6 +80,7 @@ class Login extends Component {
 
     login(user).then(res => {
         this.props.history.push(`/`)
+        return this.props.tokenData(res);
       }
     ).catch(err => {
       alert('User not found')
@@ -161,4 +163,4 @@ class Login extends Component {
   }
 }
 
-export default withStyles(styles)(Login);
+export default withRouter(withStyles(styles)(Login));

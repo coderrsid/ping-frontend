@@ -13,10 +13,14 @@ class App extends Component {
       token: null
     }
   }
-  componentWillMount() {
+  componentDidMount() {
     const token = localStorage.usertoken;
     this.setState({token: token});
     console.log(token);
+  }
+
+  setTokenData = (token) => {
+    this.setState({token: token});
   }
 
   render() {
@@ -30,10 +34,11 @@ class App extends Component {
               }
             </Route>
             <Route exact path="/register" component={Register} />
-            <Route path="/login" />
+            <Route path="/login">
             {
-              this.state.token ? <Redirect to="/" /> : <Login />
+              this.state.token ? <Redirect to="/" /> : <Login tokenData={this.setTokenData}/>
             }
+            </Route>
             <Route path="*">
               <NoMatch />
             </Route>

@@ -101,7 +101,7 @@ class Home extends Component {
 	logoutHandler = (e) => {
 		e.preventDefault()
 		localStorage.removeItem('usertoken')
-		this.props.history.push(`/login`)
+		this.props.history.push(`/register`)
     }
 
   	render() {
