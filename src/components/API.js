@@ -1,6 +1,6 @@
 import axios from 'axios';
 
 export default axios.create({
-  baseURL: 'https://ancient-shelf-92540.herokuapp.com',
+  baseURL: process.env.API_URL,
   headers: { "Content-type": "application/json" }
 });
