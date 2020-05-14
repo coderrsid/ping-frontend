@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {updateProfile} from './UserFunctions';
+import {updateProfile, getProfile} from './UserFunctions';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -72,18 +72,35 @@ class Account extends Component {
 	
 	componentDidMount () {
         const token = localStorage.usertoken;
-        const decoded = jwt_decode(token);
-        this.setState({
-			id: decoded.identity.id,
-			firstName: decoded.identity.first_name, 
-			lastName: decoded.identity.last_name, 
-			email: decoded.identity.email,
-			uiLoading: false,
-			buttonLoading: false,
-		});
-		if(decoded.identity.subscription)
-			this.setState({subscription: true});
-    }
+		const decoded = jwt_decode(token);
+		
+		let user = getProfile(decoded.identity.id);
+		user.then((response) => {
+			this.setState({
+				id: response.id,
+				firstName: response.first_name,
+				lastName: response.last_name,
+				email: response.email,
+				subscription: response.subscription,
+				uiLoading: false
+			}, () => {
+				console.log(this.state);
+			})
+		}).catch(err => alert('Profile error'))
+	}
+	
+	setProfile = (user) => {
+		if(user)
+			this.setState({
+				id: user.id,
+				firstName: user.first_name,
+				lastName: user.last_name,
+				email: user.email,
+				subscription: user.subscription,
+				uiLoading: false
+			})
+		console.log(user,this.state);
+	}
 
     handleChange = (event) => {
 		this.setState({

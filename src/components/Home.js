@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Todo from './Todo';
 import Account from './Account';
+import {getProfile} from './UserFunctions';
 import {withRouter} from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -75,9 +76,18 @@ class Home extends Component {
 	componentDidMount () {
 		const token = localStorage.usertoken;
 		const decoded = jwt_decode(token);
-		this.setState({firstName: decoded.identity.first_name, lastName: decoded.identity.last_name, uiLoading: false});
-		console.log(this.state);
-    }
+
+		let user = getProfile(decoded.identity.id);
+		user.then((response) => {
+			this.setState({
+				firstName: response.first_name,
+				lastName: response.last_name,
+				uiLoading: false
+			}, () => {
+				console.log(this.state);
+			})
+		}).catch(err => alert('Profile error'))
+	}
 
   	state = {
 		render: false

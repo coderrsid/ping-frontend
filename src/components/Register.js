@@ -60,27 +60,25 @@ class Register extends Component {
 	}
 
   onChange(e) {
-	if(e.target.name === "email") {
-		if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(e.target.value)) {
-			this.setState({errors : { email : true} })
-			console.log("email error");
-		}
-	}
-    this.setState({ [e.target.name]: e.target.value })
+	this.setState({ [e.target.name]: e.target.value })
   }
   onSubmit(e) {
-    e.preventDefault()
+	e.preventDefault()
+	
+	this.setState({loading: true});
 
     const newUser = {
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
+      firstname: this.state.firstName,
+      lastname: this.state.lastName,
       email: this.state.email,
       password: this.state.password
 	}
 
     register(newUser).then(res => {
-      this.props.history.push(`/login`)
-    })
+      	this.props.history.push(`/login`)
+	})
+	
+	this.setState({loading: false});
   }
 
   render() {

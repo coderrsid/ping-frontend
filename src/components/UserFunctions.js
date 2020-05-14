@@ -1,18 +1,19 @@
 import axios from 'axios'
 
 export const register = newUser => {
+  console.log(newUser);
   return axios
     .post('users/register', {
-      first_name: newUser.first_name,
-      last_name: newUser.last_name,
+      firstName: newUser.firstname,
+      lastName: newUser.lastname,
       email: newUser.email,
       password: newUser.password
     })
     .then(response => {
-      console.log('Registered');
+      alert('User Registered. Please login!');
     })
     .catch(error => {
-      alert('Already Registed');
+      alert('Please fill the form correctly');
     })
 }
 
@@ -25,6 +26,17 @@ export const login = user => {
     .then(response => {
       localStorage.setItem('usertoken', response.data)
       return response
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
+
+export const getProfile = userid => {
+  return axios
+    .get(`users/account/${userid}`)
+    .then(response => {
+      return(response.data)
     })
     .catch(err => {
       console.log(err)
