@@ -13,7 +13,7 @@
 
 ***
 
-### Demo : https://ping-frontend.now.sh
+### Demo : https://ping-frontend.now.sh/login
 
 ***
 
